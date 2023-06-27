@@ -1,0 +1,19 @@
+{
+  "name": "pigeon-lft",
+  "version": "1.0.0",
+  "description": "A lightweight and fast text variable replacement",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "replace",
+    "substitution",
+    "text"
+  ],
+  "author": "Victor Silva <victorportize@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "semantic-release": "^21.0.5"
+  }
+}
