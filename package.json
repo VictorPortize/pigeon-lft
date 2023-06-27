@@ -1,6 +1,6 @@
 {
   "name": "pigeon-lft",
-  "version": "0.0.0-development",
+  "version": "1.0.0",
   "description": "A lightweight and fast text variable replacement",
   "main": "index.js",
   "scripts": {
