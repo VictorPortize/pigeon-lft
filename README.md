@@ -1,5 +1,7 @@
 # Pigeon Light Fast Transformer
 
+[![semantic-release: javascript](https://img.shields.io/badge/semantic--release-javascript-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
+
 ## 1.0.1 Version
 
 - [x] Substitution matched variable
