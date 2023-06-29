@@ -2,17 +2,13 @@
 
 [![semantic-release: javascript](https://img.shields.io/badge/semantic--release-javascript-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 
-## 1.0.1 Version
-
-- [x] Substitution matched variable
-- [x] Transform matched variable
 
 ## Get started
 
 ### Basic using
 
 ```javascript
-const { formatMessageWithValues } = require('pigeon-lft');
+const { formatTextValues } = require('pigeon-lft');
 
 let message = 'hello, my name is {{name}} this library name is {{lib}}';
 
@@ -21,14 +17,14 @@ const variables = {
   lib: 'pigeon-lft',
 };
 
-message = formatMessageWithValues(message, variables);
+message = formatTextValues(message, {variables});
 // hello, my name is Victor this library name is pigeon-lft
 ```
 
 ### Using with transform
 
 ```javascript
-const { formatMessageWithValues } = require('pigeon-lft');
+const { formatTextValues } = require('pigeon-lft');
 
 let message = 'hello, my name is {{name}} this library name is {{lib}}';
 
@@ -42,7 +38,31 @@ const transforming = {
   lib: (text) => text.toLowerCase(),
 };
 
-message = formatMessageWithValues(item, variables, transforming);
+message = formatTextValues(message, {variables, transforming});
+// hello, my name is Victor this library name is pigeon-lft
+```
+
+### Using custom regex  
+
+```javascript
+const { formatTextValues } = require('pigeon-lft');
+
+let message1 = 'hello, my name is {{name}} this library name is {{lib}}';
+let message2 = 'hello, my name is {[name]} this library name is {[lib]}';
+let message3 = 'hello, my name is [name] this library name is [lib]';
+
+const variables = {
+  name: 'Victor',
+  lib: 'pigeon-lft',
+};
+
+const match = /\[[^\d!"#$%&'()*+,\-.\/:;<=>?@[\]^`{|}~][\w]+\]/;
+
+message1 = formatTextValues(message1, {variables, match});
+// hello, my name is {{name}} this library name is {{lib}}
+message2 = formatTextValues(message2, {variables, match});
+// hello, my name is {Victor} this library name is {pigeon-lft}
+message3 = formatTextValues(message3, {variables, match});
 // hello, my name is Victor this library name is pigeon-lft
 ```
 
@@ -50,4 +70,7 @@ message = formatMessageWithValues(item, variables, transforming);
 
 - Class instance
 - Custom regex variables
-- Validation / Default Values
+- Validation / default values
+- Tests
+- Benchmark's
+- RegExp custom variable prefix and suffix
