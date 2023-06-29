@@ -1,13 +1,13 @@
 # Pigeon Light Fast Transformer
 
-## 1.0.0 Version
+## 1.0.1 Version
 
 - [x] Substitution matched variable
 - [x] Transform matched variable
 
 ## Get started
 
-- ## Basic using
+### Basic using
 
 ```javascript
 const { formatMessageWithValues } = require('pigeon-lft');
@@ -23,7 +23,7 @@ message = formatMessageWithValues(item, variables);
 // hello, my name is Victor this library name is pigeon-lft
 ```
 
-- ## Using with transform
+### Using with transform
 
 ```javascript
 const { formatMessageWithValues } = require('pigeon-lft');
@@ -37,11 +37,11 @@ const variables = {
 
 const transforming = {
   name: (text) => text.trim(),
-  lib: (text) => text.toUpperCase(),
+  lib: (text) => text.toLowerCase(),
 };
 
 message = formatMessageWithValues(item, variables, transforming);
-// hello, my name is Victor this library name is PIGEON-LFT
+// hello, my name is Victor this library name is pigeon-lft
 ```
 
 ### Next step's
