@@ -8,26 +8,23 @@ on:
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18.16.1]
-
     steps:
-      - uses: actions/checkout@v3
-      - name: Node.js ${{ matrix.node-version }}
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - name: NPM CI
-      - run: npm ci
+          node-version: 'lts/*'
+      - name: Install dependencies
+        run: npm clean-install
       - name: Semantic Release
         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: npx semantic-release
-          with:
-              GH_TOKEN: ${{ secrets.GH_ACTIONS_TOKEN }}
       # - run: npm test
