@@ -13,16 +13,20 @@ jobs:
     strategy:
       matrix:
         node-version: [18.16.1]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+      - name: NPM CI
       - run: npm ci
+      - name: Semantic Release
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: npx semantic-release
           with:
               GH_TOKEN: ${{ secrets.GH_ACTIONS_TOKEN }}
