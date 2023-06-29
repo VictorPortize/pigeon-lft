@@ -22,7 +22,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-          GH_TOKEN: ${{ secrets.GH_ACTIONS_TOKEN }}
       - run: npm ci
       - run: npx semantic-release
+          with:
+              GH_TOKEN: ${{ secrets.GH_ACTIONS_TOKEN }}
       # - run: npm test
