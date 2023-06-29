@@ -21,7 +21,7 @@ const variables = {
   lib: 'pigeon-lft',
 };
 
-message = formatMessageWithValues(item, variables);
+message = formatMessageWithValues(message, variables);
 // hello, my name is Victor this library name is pigeon-lft
 ```
 
