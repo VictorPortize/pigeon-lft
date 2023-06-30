@@ -33,12 +33,12 @@ const variables = {
   lib: 'PIGEON-LFT',
 };
 
-const transforming = {
+const transform = {
   name: (text) => text.trim(),
   lib: (text) => text.toLowerCase(),
 };
 
-message = formatTextValues(message, {variables, transforming});
+message = formatTextValues(message, {variables, transform});
 // hello, my name is Victor this library name is pigeon-lft
 ```
 

@@ -1,1 +1,1 @@
-export function regexParser(text: string): RegExp;
+export function regexParser(text: string | RegExp): RegExp;
