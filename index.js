@@ -1,6 +1,7 @@
 const { regexParser } = require('./utils/regexParser');
 
 function formatMessageWithValues(message, variables, transform) {
+
   const substitutionVarMatch = message.match(/{{[^\d!"#$%&'()*+,\-.\/:;<=>?@[\]^`{|}~][\w]+}}/g)
   if (!substitutionVarMatch) return message;
   const variableFormats = {};
