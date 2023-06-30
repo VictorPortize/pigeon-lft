@@ -28,4 +28,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx semantic-release
-      # - run: npm test
+      - name: Run tests and collect coverage
+        run: npm test
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
