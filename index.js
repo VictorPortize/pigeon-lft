@@ -1,6 +1,6 @@
 const { regexParser } = require('./utils/regexParser');
 
-function formatMessageWithValues(message, variables, transforms) {
+function formatMessageWithValues(message, variables, transform) {
   const regex = new RegExp(
     /{{[^\d!"#$%&'()*+,\-.\/:;<=>?@[\]^`{|}~][\w]+}}/,
     'g'
@@ -16,15 +16,15 @@ function formatMessageWithValues(message, variables, transforms) {
     const frm = variableFormats[format];
     let to = variables[frm];
 
-    if (transforms && transforms[frm]) {
-      to = transforms[frm](to);
+    if (transform && transform[frm]) {
+      to = transform[frm](to);
     }
     msg = msg.replaceAll(format, to);
   });
   return msg;
 }
 
-function formatTextValues(message, { match, variables, transforms }) {
+function formatTextValues(message, { match, variables, transform }) {
   const regxp = match
     ? regexParser(match)
     : new RegExp(/{{[^\d!"#$%&'()*+,\-.\/:;<=>?@[\]^`{|}~][\w]+}}/, 'g');
@@ -39,8 +39,8 @@ function formatTextValues(message, { match, variables, transforms }) {
     const frm = variableFormats[format];
     let to = variables[frm] ?? '';
 
-    if (transforms && transforms[frm]) {
-      to = transforms[frm](to);
+    if (transform && transform[frm]) {
+      to = transform[frm](to);
     }
     msg = msg.replaceAll(format, to);
   });

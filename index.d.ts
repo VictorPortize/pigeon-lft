@@ -1,5 +1,5 @@
 interface FormatOptions {
-  match: RegExp;
+  match?: RegExp;
   variables: Record<string, string>;
   transform?: Record<string, StringCallbackFunction>;
 }
