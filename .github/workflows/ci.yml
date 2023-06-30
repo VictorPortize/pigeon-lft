@@ -2,9 +2,13 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [main, develop]
+    branches: 
+      - main
+      - develop
   pull_request:
-    branches: [main, develop]
+    branches: 
+      - main
+      - develop
 
 jobs:
   build:
@@ -30,5 +34,7 @@ jobs:
         run: npx semantic-release
       - name: Run tests and collect coverage
         run: npm test
-      - name: Upload coverage to Codecov
+      - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
+        env: 
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
