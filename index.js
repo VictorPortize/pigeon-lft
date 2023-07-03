@@ -33,7 +33,7 @@ function formatTextValues(message, { match, variables = {}, transform, defaultVa
   });
   let msg = message;
   substitutionVarMatch.forEach((format) => {
-    const frm = variableFormats[format] ?? '';
+    const frm = variableFormats[format];
     let to = variables[frm] ?? ''
     if(to === '' && (typeof defaultValue == 'string' || defaultValue))
     to = typeof defaultValue == 'string' ? 
