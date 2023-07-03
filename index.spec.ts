@@ -58,6 +58,33 @@ describe("Testing index.js formatTextValues ",function(){
             expect(formatTextValues(message, {variables, match: /\[[^\d!"#$%&'()*+,\-.\/:;<=>?@[\]^`{|}~][\w]+\]/g})).toBe('hello, my name is Victor this library name is pigeon-lft')
         })
     })
+
+    describe("testing default values",function(){
+        it("should not format with default string value",() => {
+            const message = 'hello, my name is {{name}} this library name is {{lib}}';
+            expect(formatTextValues(message, {variables, defaultValue: "Default"})).toBe('hello, my name is Victor this library name is pigeon-lft')
+        })
+
+        it("should not format with default object value",() => {
+            const message = 'hello, my name is {{name}} this library name is {{lib}}';
+            expect(formatTextValues(message, {variables, defaultValue: { 'name': "Pigeon", lib: "lib" }})).toBe('hello, my name is Victor this library name is pigeon-lft')
+        })
+
+        it("should format with default string value",() => {
+            const message = 'hello, my name is {{name}} this library name is {{lib}}';
+            expect(formatTextValues(message, {defaultValue: "Default"})).toBe('hello, my name is Default this library name is Default')
+        })
+
+        it("should format with default object value",() => {
+            const message = 'hello, my name is {{name}} this library name is {{lib}}';
+            expect(formatTextValues(message, { defaultValue: { 'name': "Pigeon-LFT", lib: "Victor" }})).toBe('hello, my name is Pigeon-LFT this library name is Victor')
+        })
+
+        it("should format with default object value",() => {
+            const message = 'hello, my name is {{name}} this library name is {{lib}}';
+            expect(formatTextValues(message, { defaultValue: { lib: "Victor" }})).toBe('hello, my name is  this library name is Victor')
+        })
+    })
 })
 
 describe("Testing index.js formatMessageWithValues ",function(){

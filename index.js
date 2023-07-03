@@ -21,7 +21,7 @@ function formatMessageWithValues(message, variables, transform) {
   return msg;
 }
 
-function formatTextValues(message, { match, variables, transform }) {
+function formatTextValues(message, { match, variables = {}, transform, defaultValue }) {
   const regxp = match
     ? regexParser(match)
     : new RegExp(/{{[^\d!"#$%&'()*+,\-.\/:;<=>?@[\]^`{|}~][\w]+}}/, 'g');
@@ -33,9 +33,13 @@ function formatTextValues(message, { match, variables, transform }) {
   });
   let msg = message;
   substitutionVarMatch.forEach((format) => {
-    const frm = variableFormats[format];
-    let to = variables[frm] ?? '';
-
+    const frm = variableFormats[format] ?? '';
+    let to = variables[frm] ?? ''
+    if(to === '' && (typeof defaultValue == 'string' || defaultValue))
+    to = typeof defaultValue == 'string' ? 
+      defaultValue: 
+          defaultValue[frm] ?
+            defaultValue[frm] : "";
     if (transform && transform[frm]) {
       to = transform[frm](to);
     }
