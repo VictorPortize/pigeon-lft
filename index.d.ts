@@ -1,16 +1,16 @@
 interface FormatOptions {
   match?: RegExp;
-  variables?: Record<string, string>;
-  transform?: Record<string, StringCallbackFunction>;
+  variables?: Record<string, string | number>;
+  transform?: Record<string, TextCallbackFunction>;
   defaultValue?: string | Record<string, string>;
 }
 
-type StringCallbackFunction = (variable: string) => string;
+type TextCallbackFunction = (variable: string | number) => string;
 
 export function formatMessageWithValues(
   message: string,
-  variables: Record<string, string>,
-  transform?: Record<string, StringCallbackFunction>
+  variables: Record<string, string | number>,
+  transform?: Record<string, TextCallbackFunction>
 ): string;
 
 export function formatTextValues(

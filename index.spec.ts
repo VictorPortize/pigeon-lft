@@ -4,6 +4,7 @@ import { formatTextValues,formatMessageWithValues } from './index'
 const variables = {
     name: 'Victor',
     lib: 'pigeon-lft',
+    version: 1.3
 };
 
 const transform = {
@@ -13,27 +14,27 @@ const transform = {
     },
 };
 
-const message = 'hello, my name is {{name}} this library name is {{lib}}';
+const message = 'hello, my name is {{name}} this library name is {{lib}} in version {{version}}';
 
 
 describe("Testing index.js formatTextValues ",function(){
     it("should format text without transform",() => {
-        expect(formatTextValues(message, {variables})).toBe('hello, my name is Victor this library name is pigeon-lft')
+        expect(formatTextValues(message, {variables})).toBe('hello, my name is Victor this library name is pigeon-lft in version 1.3')
     })
 
     it("should format text with transform",() => {
-        expect(formatTextValues(message, {variables, transform})).toBe('hello, my name is Victor this library name is PIGEON-LFT')
+        expect(formatTextValues(message, {variables, transform})).toBe('hello, my name is Victor this library name is PIGEON-LFT in version 1.3')
     })
 
     it("should format text with transform",() => {
-        expect(formatTextValues(message, {variables, transform})).toBe('hello, my name is Victor this library name is PIGEON-LFT')
+        expect(formatTextValues(message, {variables, transform})).toBe('hello, my name is Victor this library name is PIGEON-LFT in version 1.3')
     })
 
     it("should return empty on variable undefined",() => {
         const variables = {
             name: "",
         }
-        expect(formatTextValues(message, {variables})).toBe('hello, my name is  this library name is ')
+        expect(formatTextValues(message, {variables})).toBe('hello, my name is  this library name is  in version ')
     })
 
     describe("testing custom regex",function(){
@@ -43,13 +44,13 @@ describe("Testing index.js formatTextValues ",function(){
         })
 
         it("should format weirdly",() => {
-            const message = 'hello, my name is {[name]} this library name is {[lib]}';
-            expect(formatTextValues(message, {variables, match: /\[[^\d!"#$%&'()*+,\-.\/:;<=>?@[\]^`{|}~][\w]+\]/})).toBe('hello, my name is {Victor} this library name is {[lib]}')
+            const message = 'hello, my name is {[name]} this library name is {[lib]} in version {[version]}';
+            expect(formatTextValues(message, {variables, match: /\[[^\d!"#$%&'()*+,\-.\/:;<=>?@[\]^`{|}~][\w]+\]/})).toBe('hello, my name is {Victor} this library name is {[lib]} in version {[version]}')
         })
 
         it("should format correct",() => {
-            const message = 'hello, my name is {[name]} this library name is {[lib]}';
-            expect(formatTextValues(message, {variables, match: /\[[^\d!"#$%&'()*+,\-.\/:;<=>?@[\]^`{|}~][\w]+\]/g})).toBe('hello, my name is {Victor} this library name is {pigeon-lft}')
+            const message = 'hello, my name is {[name]} this library name is {[lib]} in version {[version]}';
+            expect(formatTextValues(message, {variables, match: /\[[^\d!"#$%&'()*+,\-.\/:;<=>?@[\]^`{|}~][\w]+\]/g})).toBe('hello, my name is {Victor} this library name is {pigeon-lft} in version {1.3}')
         })
 
 
@@ -89,7 +90,7 @@ describe("Testing index.js formatTextValues ",function(){
 
 describe("Testing index.js formatMessageWithValues ",function(){
     it("should format text without transform",() => {
-        expect(formatMessageWithValues(message, variables)).toBe('hello, my name is Victor this library name is pigeon-lft')
+        expect(formatMessageWithValues(message, variables)).toBe('hello, my name is Victor this library name is pigeon-lft in version 1.3')
     })
 
     it("should format text without transform",() => {
@@ -104,11 +105,11 @@ describe("Testing index.js formatMessageWithValues ",function(){
                 return text.toUpperCase()
             },
         };
-        expect(formatMessageWithValues(message, variables, transform)).toBe('hello, my name is Victor this library name is PIGEON-LFT')
+        expect(formatMessageWithValues(message, variables, transform)).toBe('hello, my name is Victor this library name is PIGEON-LFT in version 1.3')
     })
 
     it("should format text with transform",() => {
-        expect(formatMessageWithValues(message, variables, transform)).toBe('hello, my name is Victor this library name is PIGEON-LFT')
+        expect(formatMessageWithValues(message, variables, transform)).toBe('hello, my name is Victor this library name is PIGEON-LFT in version 1.3')
     })
 
 })
