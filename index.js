@@ -1,51 +1,29 @@
 const { regexParser } = require('./utils/regexParser');
+const _ = require('lodash')
 
 function formatMessageWithValues(message, variables, transform) {
-
-  const substitutionVarMatch = message.match(/{{[^\d!"#$%&'()*+,\-.\/:;<=>?@[\]^`{|}~][\w]+}}/g)
-  if (!substitutionVarMatch) return message;
-  const variableFormats = {};
-  substitutionVarMatch?.forEach((item) => {
-    variableFormats[item] = item.replace(/[{}]+/g, '');
+  return message.replace(/\{\{([^\d!"#$%&'()*+,\-.\/:;<=>?@[\]^`{|}~][\w]+)\}\}/g,(match, values) => {
+    const str = _.get(variables,values,match)
+    if(transform) return _.get(transform,values,(text) => text)(str)
+    return str 
   });
-  let msg = message;
-  substitutionVarMatch.forEach((format) => {
-    const frm = variableFormats[format];
-    let to = variables[frm];
-
-    if (transform && transform[frm]) {
-      to = transform[frm](to);
-    }
-    msg = msg.replaceAll(format, to);
-  });
-  return msg;
 }
 
 function formatTextValues(message, { match, variables = {}, transform, defaultValue }) {
   const regxp = match
     ? regexParser(match)
-    : new RegExp(/{{[^\d!"#$%&'()*+,\-.\/:;<=>?@[\]^`{|}~][\w]+}}/, 'g');
-  const substitutionVarMatch = message.match(regxp);
-  if (!substitutionVarMatch) return message;
-  const variableFormats = {};
-  substitutionVarMatch?.forEach((item) => {
-    variableFormats[item] = item.replace(/[!"#$%&'()*+,\-.\/:;<=>?@[\]^`{|}~]+/g, '');
-  });
-  let msg = message;
-  substitutionVarMatch.forEach((format) => {
-    const frm = variableFormats[format];
-    let to = variables[frm] ?? ''
-    if(to === '' && (typeof defaultValue == 'string' || defaultValue))
-    to = typeof defaultValue == 'string' ? 
-      defaultValue: 
-          defaultValue[frm] ?
-            defaultValue[frm] : "";
-    if (transform && transform[frm]) {
-      to = transform[frm](to);
+    : new RegExp(/\{\{([a-zA-Z_$][a-zA-Z0-9_$]*)\}\}/, 'g');
+ 
+  return message.replace(regxp,(matched, values) => {
+    let group = values;
+    if(match){
+      matched = matched.replace(/[!"#$%&'()*+,\-.\/:;<=>?@[\]^`{|}~]+/g, '');
+      group = matched;
     }
-    msg = msg.replaceAll(format, to);
+    const deflt = typeof defaultValue == 'string' ? defaultValue : _.get(defaultValue, group,match ? matched : "") 
+    const str = _.get(variables,group,deflt)
+    return transform ? _.get(transform,group,(text) => text)(str) : str; 
   });
-  return msg;
 }
 
 module.exports = {
