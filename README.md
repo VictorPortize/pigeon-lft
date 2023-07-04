@@ -106,4 +106,5 @@ message = formatTextValues(message, {defaultValues: {name: 'Pigeon-LFT', lib: "V
 - Class instance ??
 - Validation
 - Benchmark's
-- performance again but now 
+
+### looking for performance gaps, if you find one, email me
