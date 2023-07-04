@@ -9,6 +9,11 @@
 
 ## Get started
 
+### Why? 
+
+pigeon is an alias for a message-delivering microservice we build at work, so since we need a replacement text for variables with formatter... we need a Pigeon-LFT
+
+![meme what originated the name of the library](https://media.tenor.com/xBk3W_f99MIAAAAC/is-this-a-pigeon-butterfly.gif)
 ### Basic using
 
 ```javascript
@@ -70,7 +75,7 @@ message3 = formatTextValues(message3, {variables, match});
 // hello, my name is Victor this library name is pigeon-lft
 ```
 
-### Using default values ( +1.3.0 )
+### Using default values ( version: +1.3.0 )
 
 ```javascript
 const { formatTextValues } = require('pigeon-lft');
@@ -101,5 +106,5 @@ message = formatTextValues(message, {defaultValues: {name: 'Pigeon-LFT', lib: "V
 - Class instance ??
 - Validation
 - Benchmark's
-- RegExp custom variable prefix and suffix
-- PERFORMANCE!!
+
+### looking for performance gaps, if you find one, email me
