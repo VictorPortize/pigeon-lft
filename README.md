@@ -6,8 +6,15 @@
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
 
 
-
 ## Get started
+
+### Installation
+
+Using Yarn
+ > yarn add pigeon-lft
+
+Using NPM
+ > npm i pigeon-lft
 
 ### Why? 
 
@@ -101,10 +108,6 @@ message = formatTextValues(message, {defaultValues: {name: 'Pigeon-LFT', lib: "V
 // hello, my name is Pigeon-LFT this library name is Victor
 ```
 
-### Next step's
+### After thinking more about my library's purpose, I think it doesn't need validation, if you need more features, send me an email.
 
-- Class instance ??
-- Validation
-- Benchmark's
-
-### looking for performance gaps, if you find one, email me
+## Looking for performance gaps, if you find one, email me
